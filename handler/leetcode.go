@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 
-	logger "github.com/etharrra/go-leetcode-api/loggger"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -15,7 +14,7 @@ type GraphQLRequest struct {
 }
 
 func FetchUserProfile(c *fiber.Ctx) error {
-	username := c.AllParams()["username"]
+	username := c.Params("username")
 	url := "https://leetcode.com/graphql"
 
 	payload := GraphQLRequest{
@@ -40,7 +39,7 @@ func FetchUserProfile(c *fiber.Ctx) error {
 	req.SetRequestURI(url)
 
 	if err := a.Parse(); err != nil {
-		panic(err)
+		return c.JSON(fiber.Map{"status": 500, "message": fmt.Sprintf("Failed to parse request: %v", err), "data": nil})
 	}
 
 	code, body, errs := a.Bytes()
@@ -48,9 +47,13 @@ func FetchUserProfile(c *fiber.Ctx) error {
 		return c.JSON(fiber.Map{"status": 500, "message": fmt.Sprintf("Request errors: %v", errs), "data": nil})
 	}
 
-	if err := logger.WriteLog(string(body)); err != nil {
-		fmt.Println("Error writing log:", err)
+	if code != 200 {
+		return c.JSON(fiber.Map{"status": code, "message": fmt.Sprintf("Non-200 response: %s", body), "data": nil})
 	}
+
+	// if err := logger.WriteLog(string(body)); err != nil {
+	// 	fmt.Println("Error writing log:", err)
+	// }
 
 	response := GraphQLResponse{}
 

@@ -10,5 +10,5 @@ func SetupRoutes(app *fiber.App) {
 		return c.SendString("pong")
 	})
 
-	app.Get("/:username", handler.FetchUserProfile)
+	app.Get("/api/:username", handler.FetchUserProfile)
 }
