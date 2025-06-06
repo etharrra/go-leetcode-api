@@ -14,6 +14,7 @@ const Query = `
 			profile {
 				reputation
 				ranking
+				realName
 			}
 			submissionCalendar
 			submitStats {

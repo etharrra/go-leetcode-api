@@ -37,6 +37,7 @@ type Contributions struct {
 type Profile struct {
 	Reputation int `json:"reputation"`
 	Ranking    int `json:"ranking"`
+	RealName   string `json:"realName"`
 }
 
 // SubmitStats represents submission statistics
