@@ -1,5 +1,7 @@
 # Go LeetCode API
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20Live-brightgreen)](https://go-leetcode-api.onrender.com/ping)
+
 This project is a Go-based API that interacts with the LeetCode GraphQL API to fetch user profiles, submission statistics, and other related data.
 
 ## Project Structure
